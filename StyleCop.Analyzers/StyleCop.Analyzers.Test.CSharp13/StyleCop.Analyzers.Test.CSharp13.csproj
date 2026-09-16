@@ -37,4 +37,15 @@
     <ProjectReference Include="..\StyleCop.Analyzers.PrivateCodeFixes\StyleCop.Analyzers.PrivateCodeFixes.csproj" PrivateAssets="all" SetTargetFramework="TargetFramework=netstandard2.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DocumentationRules\" />
+    <Folder Include="HelperTests\" />
+    <Folder Include="Lightup\" />
+    <Folder Include="MaintainabilityRules\" />
+    <Folder Include="NamingRules\" />
+    <Folder Include="OrderingRules\" />
+    <Folder Include="Settings\" />
+    <Folder Include="SpecialRules\" />
+  </ItemGroup>
+
 </Project>

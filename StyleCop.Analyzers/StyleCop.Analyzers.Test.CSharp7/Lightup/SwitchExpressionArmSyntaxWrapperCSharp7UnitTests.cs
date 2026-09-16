@@ -8,6 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
     using System;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Test.Lightup;
     using Xunit;
@@ -20,7 +21,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
             var switchExpressionSyntax = (SwitchExpressionArmSyntaxWrapper)default(SyntaxNode);
 
             var patternSyntax = SyntaxFactory.ConstantPattern(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
-            Assert.Throws<NullReferenceException>(() => switchExpressionSyntax.WithPattern((PatternSyntaxWrapper)patternSyntax));
+            Assert.Throws<NullReferenceException>(() => switchExpressionSyntax.WithPattern((PatternSyntax)patternSyntax));
         }
 
         [Fact]
@@ -29,7 +30,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
             var switchExpressionSyntax = (SwitchExpressionArmSyntaxWrapper)default(SyntaxNode);
 
             var whenClause = SyntaxFactory.WhenClause(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression));
-            Assert.Throws<NullReferenceException>(() => switchExpressionSyntax.WithWhenClause((WhenClauseSyntaxWrapper)whenClause));
+            Assert.Throws<NullReferenceException>(() => switchExpressionSyntax.WithWhenClause((WhenClauseSyntax)whenClause));
         }
     }
 }

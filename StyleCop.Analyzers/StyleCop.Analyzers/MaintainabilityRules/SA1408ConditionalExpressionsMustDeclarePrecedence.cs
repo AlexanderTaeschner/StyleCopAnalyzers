@@ -125,7 +125,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         {
             var binaryPattern = (BinaryPatternSyntaxWrapper)context.Node;
 
-            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Left.SyntaxNode))
+            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Left))
             {
                 var left = (BinaryPatternSyntaxWrapper)binaryPattern.Left;
                 if (IsLogicalOperator(left.OperatorToken) && !IsSameFamily(binaryPattern.OperatorToken, left.OperatorToken))
@@ -134,7 +134,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 }
             }
 
-            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Right.SyntaxNode))
+            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Right))
             {
                 var right = (BinaryPatternSyntaxWrapper)binaryPattern.Right;
                 if (IsLogicalOperator(right.OperatorToken) && !IsSameFamily(binaryPattern.OperatorToken, right.OperatorToken))

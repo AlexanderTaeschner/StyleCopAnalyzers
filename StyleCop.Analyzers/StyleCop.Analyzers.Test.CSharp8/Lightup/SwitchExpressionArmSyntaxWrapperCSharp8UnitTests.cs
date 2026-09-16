@@ -33,12 +33,12 @@ namespace StyleCop.Analyzers.Test.CSharp8.Lightup
             var syntaxNode = this.CreateSwitchExpressionArm();
 
             var wrapper = (SwitchExpressionArmSyntaxWrapper)syntaxNode;
-            Assert.Same(syntaxNode.Pattern, wrapper.Pattern.SyntaxNode);
+            Assert.Same(syntaxNode.Pattern, wrapper.Pattern);
 
             var newPattern = SyntaxFactory.ConstantPattern(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
-            var wrapperWithModifiedPattern = wrapper.WithPattern((PatternSyntaxWrapper)newPattern);
+            var wrapperWithModifiedPattern = wrapper.WithPattern((PatternSyntax)newPattern);
             Assert.NotNull(wrapperWithModifiedPattern.SyntaxNode);
-            Assert.NotSame(syntaxNode.Pattern, wrapperWithModifiedPattern.Pattern.SyntaxNode);
+            Assert.NotSame(syntaxNode.Pattern, wrapperWithModifiedPattern.Pattern);
             Assert.True(newPattern.IsEquivalentTo(wrapperWithModifiedPattern.Pattern));
         }
 
@@ -48,12 +48,12 @@ namespace StyleCop.Analyzers.Test.CSharp8.Lightup
             var syntaxNode = this.CreateSwitchExpressionArm();
 
             var wrapper = (SwitchExpressionArmSyntaxWrapper)syntaxNode;
-            Assert.Same(syntaxNode.WhenClause, wrapper.WhenClause.SyntaxNode);
+            Assert.Same(syntaxNode.WhenClause, wrapper.WhenClause);
 
             var newWhenClause = SyntaxFactory.WhenClause(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression));
-            var wrapperWithModifiedWhenClause = wrapper.WithWhenClause((WhenClauseSyntaxWrapper)newWhenClause);
+            var wrapperWithModifiedWhenClause = wrapper.WithWhenClause((WhenClauseSyntax)newWhenClause);
             Assert.NotNull(wrapperWithModifiedWhenClause.SyntaxNode);
-            Assert.NotSame(syntaxNode.WhenClause, wrapperWithModifiedWhenClause.WhenClause.SyntaxNode);
+            Assert.NotSame(syntaxNode.WhenClause, wrapperWithModifiedWhenClause.WhenClause);
             Assert.True(newWhenClause.IsEquivalentTo(wrapperWithModifiedWhenClause.WhenClause));
         }
 

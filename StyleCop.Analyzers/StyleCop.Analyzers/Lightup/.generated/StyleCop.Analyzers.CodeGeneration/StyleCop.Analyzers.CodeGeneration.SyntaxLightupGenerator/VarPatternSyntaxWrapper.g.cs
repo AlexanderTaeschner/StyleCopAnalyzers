@@ -9,33 +9,33 @@ namespace StyleCop.Analyzers.Lightup
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-    internal readonly partial struct VarPatternSyntaxWrapper : ISyntaxWrapper<CSharpSyntaxNode>
+    internal readonly partial struct VarPatternSyntaxWrapper : ISyntaxWrapper<PatternSyntax>
     {
         internal const string WrappedTypeName = "Microsoft.CodeAnalysis.CSharp.Syntax.VarPatternSyntax";
         private static readonly Type WrappedType;
 
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken> VarKeywordAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode> DesignationAccessor;
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken, CSharpSyntaxNode> WithVarKeywordAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode, CSharpSyntaxNode> WithDesignationAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken> VarKeywordAccessor;
+        private static readonly Func<PatternSyntax, VariableDesignationSyntax> DesignationAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken, PatternSyntax> WithVarKeywordAccessor;
+        private static readonly Func<PatternSyntax, VariableDesignationSyntax, PatternSyntax> WithDesignationAccessor;
 
-        private readonly CSharpSyntaxNode node;
+        private readonly PatternSyntax node;
 
         static VarPatternSyntaxWrapper()
         {
             WrappedType = SyntaxWrapperHelper.GetWrappedType(typeof(VarPatternSyntaxWrapper));
-            VarKeywordAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(VarKeyword));
-            DesignationAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Designation));
-            WithVarKeywordAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(VarKeyword));
-            WithDesignationAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Designation));
+            VarKeywordAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(VarKeyword));
+            DesignationAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, VariableDesignationSyntax>(WrappedType, nameof(Designation));
+            WithVarKeywordAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(VarKeyword));
+            WithDesignationAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, VariableDesignationSyntax>(WrappedType, nameof(Designation));
         }
 
-        private VarPatternSyntaxWrapper(CSharpSyntaxNode node)
+        private VarPatternSyntaxWrapper(PatternSyntax node)
         {
             this.node = node;
         }
 
-        public CSharpSyntaxNode SyntaxNode => this.node;
+        public PatternSyntax SyntaxNode => this.node;
 
 
         public SyntaxToken VarKeyword
@@ -46,22 +46,12 @@ namespace StyleCop.Analyzers.Lightup
             }
         }
 
-        public VariableDesignationSyntaxWrapper Designation
+        public VariableDesignationSyntax Designation
         {
             get
             {
-                return (VariableDesignationSyntaxWrapper)DesignationAccessor(this.SyntaxNode);
+                return DesignationAccessor(this.SyntaxNode);
             }
-        }
-
-        public static explicit operator VarPatternSyntaxWrapper(PatternSyntaxWrapper node)
-        {
-            return (VarPatternSyntaxWrapper)node.SyntaxNode;
-        }
-
-        public static explicit operator VarPatternSyntaxWrapper(ExpressionOrPatternSyntaxWrapper node)
-        {
-            return (VarPatternSyntaxWrapper)node.SyntaxNode;
         }
 
         public static explicit operator VarPatternSyntaxWrapper(SyntaxNode node)
@@ -76,20 +66,10 @@ namespace StyleCop.Analyzers.Lightup
                 throw new InvalidCastException($"Cannot cast '{node.GetType().FullName}' to '{WrappedTypeName}'");
             }
 
-            return new VarPatternSyntaxWrapper((CSharpSyntaxNode)node);
+            return new VarPatternSyntaxWrapper((PatternSyntax)node);
         }
 
-        public static implicit operator PatternSyntaxWrapper(VarPatternSyntaxWrapper wrapper)
-        {
-            return PatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator ExpressionOrPatternSyntaxWrapper(VarPatternSyntaxWrapper wrapper)
-        {
-            return ExpressionOrPatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator CSharpSyntaxNode(VarPatternSyntaxWrapper wrapper)
+        public static implicit operator PatternSyntax(VarPatternSyntaxWrapper wrapper)
         {
             return wrapper.node;
         }
@@ -104,7 +84,7 @@ namespace StyleCop.Analyzers.Lightup
             return new VarPatternSyntaxWrapper(WithVarKeywordAccessor(this.SyntaxNode, varKeyword));
         }
 
-        public VarPatternSyntaxWrapper WithDesignation(VariableDesignationSyntaxWrapper designation)
+        public VarPatternSyntaxWrapper WithDesignation(VariableDesignationSyntax designation)
         {
             return new VarPatternSyntaxWrapper(WithDesignationAccessor(this.SyntaxNode, designation));
         }

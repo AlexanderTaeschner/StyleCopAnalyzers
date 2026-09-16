@@ -14,12 +14,12 @@ namespace StyleCop.Analyzers.Lightup
         internal const string WrappedTypeName = "Microsoft.CodeAnalysis.CSharp.Syntax.SwitchExpressionArmSyntax";
         private static readonly Type WrappedType;
 
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode> PatternAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode> WhenClauseAccessor;
+        private static readonly Func<CSharpSyntaxNode, PatternSyntax> PatternAccessor;
+        private static readonly Func<CSharpSyntaxNode, WhenClauseSyntax> WhenClauseAccessor;
         private static readonly Func<CSharpSyntaxNode, SyntaxToken> EqualsGreaterThanTokenAccessor;
         private static readonly Func<CSharpSyntaxNode, ExpressionSyntax> ExpressionAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode, CSharpSyntaxNode> WithPatternAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode, CSharpSyntaxNode> WithWhenClauseAccessor;
+        private static readonly Func<CSharpSyntaxNode, PatternSyntax, CSharpSyntaxNode> WithPatternAccessor;
+        private static readonly Func<CSharpSyntaxNode, WhenClauseSyntax, CSharpSyntaxNode> WithWhenClauseAccessor;
         private static readonly Func<CSharpSyntaxNode, SyntaxToken, CSharpSyntaxNode> WithEqualsGreaterThanTokenAccessor;
         private static readonly Func<CSharpSyntaxNode, ExpressionSyntax, CSharpSyntaxNode> WithExpressionAccessor;
 
@@ -28,12 +28,12 @@ namespace StyleCop.Analyzers.Lightup
         static SwitchExpressionArmSyntaxWrapper()
         {
             WrappedType = SyntaxWrapperHelper.GetWrappedType(typeof(SwitchExpressionArmSyntaxWrapper));
-            PatternAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Pattern));
-            WhenClauseAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(WhenClause));
+            PatternAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, PatternSyntax>(WrappedType, nameof(Pattern));
+            WhenClauseAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, WhenClauseSyntax>(WrappedType, nameof(WhenClause));
             EqualsGreaterThanTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(EqualsGreaterThanToken));
             ExpressionAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, ExpressionSyntax>(WrappedType, nameof(Expression));
-            WithPatternAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Pattern));
-            WithWhenClauseAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(WhenClause));
+            WithPatternAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, PatternSyntax>(WrappedType, nameof(Pattern));
+            WithWhenClauseAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, WhenClauseSyntax>(WrappedType, nameof(WhenClause));
             WithEqualsGreaterThanTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(EqualsGreaterThanToken));
             WithExpressionAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, ExpressionSyntax>(WrappedType, nameof(Expression));
         }
@@ -46,19 +46,19 @@ namespace StyleCop.Analyzers.Lightup
         public CSharpSyntaxNode SyntaxNode => this.node;
 
 
-        public PatternSyntaxWrapper Pattern
+        public PatternSyntax Pattern
         {
             get
             {
-                return (PatternSyntaxWrapper)PatternAccessor(this.SyntaxNode);
+                return PatternAccessor(this.SyntaxNode);
             }
         }
 
-        public WhenClauseSyntaxWrapper WhenClause
+        public WhenClauseSyntax WhenClause
         {
             get
             {
-                return (WhenClauseSyntaxWrapper)WhenClauseAccessor(this.SyntaxNode);
+                return WhenClauseAccessor(this.SyntaxNode);
             }
         }
 
@@ -103,12 +103,12 @@ namespace StyleCop.Analyzers.Lightup
             return node != null && LightupHelpers.CanWrapNode(node, WrappedType);
         }
 
-        public SwitchExpressionArmSyntaxWrapper WithPattern(PatternSyntaxWrapper pattern)
+        public SwitchExpressionArmSyntaxWrapper WithPattern(PatternSyntax pattern)
         {
             return new SwitchExpressionArmSyntaxWrapper(WithPatternAccessor(this.SyntaxNode, pattern));
         }
 
-        public SwitchExpressionArmSyntaxWrapper WithWhenClause(WhenClauseSyntaxWrapper whenClause)
+        public SwitchExpressionArmSyntaxWrapper WithWhenClause(WhenClauseSyntax whenClause)
         {
             return new SwitchExpressionArmSyntaxWrapper(WithWhenClauseAccessor(this.SyntaxNode, whenClause));
         }

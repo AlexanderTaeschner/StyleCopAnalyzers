@@ -26,10 +26,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
         public void TestWrapSyntaxWrapperNode()
         {
             var syntaxNode = SyntaxFactory.DiscardDesignation();
-            var syntaxWrapper = SyntaxWrapper<DiscardDesignationSyntaxWrapper>.Default;
+            var syntaxWrapper = SyntaxWrapper<DiscardDesignationSyntax>.Default;
 
-            Assert.Same(syntaxNode, syntaxWrapper.Wrap(syntaxNode).SyntaxNode);
-            Assert.Same(syntaxNode, syntaxWrapper.Unwrap((DiscardDesignationSyntaxWrapper)syntaxNode));
+            Assert.Same(syntaxNode, syntaxWrapper.Wrap(syntaxNode));
+            Assert.Same(syntaxNode, syntaxWrapper.Unwrap((DiscardDesignationSyntax)syntaxNode));
         }
     }
 }

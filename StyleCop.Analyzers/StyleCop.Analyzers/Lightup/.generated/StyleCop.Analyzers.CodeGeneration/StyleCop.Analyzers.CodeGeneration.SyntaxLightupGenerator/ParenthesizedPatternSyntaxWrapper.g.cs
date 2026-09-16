@@ -9,37 +9,37 @@ namespace StyleCop.Analyzers.Lightup
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-    internal readonly partial struct ParenthesizedPatternSyntaxWrapper : ISyntaxWrapper<CSharpSyntaxNode>
+    internal readonly partial struct ParenthesizedPatternSyntaxWrapper : ISyntaxWrapper<PatternSyntax>
     {
         internal const string WrappedTypeName = "Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedPatternSyntax";
         private static readonly Type WrappedType;
 
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken> OpenParenTokenAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode> PatternAccessor;
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken> CloseParenTokenAccessor;
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken, CSharpSyntaxNode> WithOpenParenTokenAccessor;
-        private static readonly Func<CSharpSyntaxNode, CSharpSyntaxNode, CSharpSyntaxNode> WithPatternAccessor;
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken, CSharpSyntaxNode> WithCloseParenTokenAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken> OpenParenTokenAccessor;
+        private static readonly Func<PatternSyntax, PatternSyntax> PatternAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken> CloseParenTokenAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken, PatternSyntax> WithOpenParenTokenAccessor;
+        private static readonly Func<PatternSyntax, PatternSyntax, PatternSyntax> WithPatternAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken, PatternSyntax> WithCloseParenTokenAccessor;
 
-        private readonly CSharpSyntaxNode node;
+        private readonly PatternSyntax node;
 
         static ParenthesizedPatternSyntaxWrapper()
         {
             WrappedType = SyntaxWrapperHelper.GetWrappedType(typeof(ParenthesizedPatternSyntaxWrapper));
-            OpenParenTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(OpenParenToken));
-            PatternAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Pattern));
-            CloseParenTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(CloseParenToken));
-            WithOpenParenTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(OpenParenToken));
-            WithPatternAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, CSharpSyntaxNode>(WrappedType, nameof(Pattern));
-            WithCloseParenTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(CloseParenToken));
+            OpenParenTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(OpenParenToken));
+            PatternAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, PatternSyntax>(WrappedType, nameof(Pattern));
+            CloseParenTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(CloseParenToken));
+            WithOpenParenTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(OpenParenToken));
+            WithPatternAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, PatternSyntax>(WrappedType, nameof(Pattern));
+            WithCloseParenTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(CloseParenToken));
         }
 
-        private ParenthesizedPatternSyntaxWrapper(CSharpSyntaxNode node)
+        private ParenthesizedPatternSyntaxWrapper(PatternSyntax node)
         {
             this.node = node;
         }
 
-        public CSharpSyntaxNode SyntaxNode => this.node;
+        public PatternSyntax SyntaxNode => this.node;
 
 
         public SyntaxToken OpenParenToken
@@ -50,11 +50,11 @@ namespace StyleCop.Analyzers.Lightup
             }
         }
 
-        public PatternSyntaxWrapper Pattern
+        public PatternSyntax Pattern
         {
             get
             {
-                return (PatternSyntaxWrapper)PatternAccessor(this.SyntaxNode);
+                return PatternAccessor(this.SyntaxNode);
             }
         }
 
@@ -64,16 +64,6 @@ namespace StyleCop.Analyzers.Lightup
             {
                 return CloseParenTokenAccessor(this.SyntaxNode);
             }
-        }
-
-        public static explicit operator ParenthesizedPatternSyntaxWrapper(PatternSyntaxWrapper node)
-        {
-            return (ParenthesizedPatternSyntaxWrapper)node.SyntaxNode;
-        }
-
-        public static explicit operator ParenthesizedPatternSyntaxWrapper(ExpressionOrPatternSyntaxWrapper node)
-        {
-            return (ParenthesizedPatternSyntaxWrapper)node.SyntaxNode;
         }
 
         public static explicit operator ParenthesizedPatternSyntaxWrapper(SyntaxNode node)
@@ -88,20 +78,10 @@ namespace StyleCop.Analyzers.Lightup
                 throw new InvalidCastException($"Cannot cast '{node.GetType().FullName}' to '{WrappedTypeName}'");
             }
 
-            return new ParenthesizedPatternSyntaxWrapper((CSharpSyntaxNode)node);
+            return new ParenthesizedPatternSyntaxWrapper((PatternSyntax)node);
         }
 
-        public static implicit operator PatternSyntaxWrapper(ParenthesizedPatternSyntaxWrapper wrapper)
-        {
-            return PatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator ExpressionOrPatternSyntaxWrapper(ParenthesizedPatternSyntaxWrapper wrapper)
-        {
-            return ExpressionOrPatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator CSharpSyntaxNode(ParenthesizedPatternSyntaxWrapper wrapper)
+        public static implicit operator PatternSyntax(ParenthesizedPatternSyntaxWrapper wrapper)
         {
             return wrapper.node;
         }
@@ -116,7 +96,7 @@ namespace StyleCop.Analyzers.Lightup
             return new ParenthesizedPatternSyntaxWrapper(WithOpenParenTokenAccessor(this.SyntaxNode, openParenToken));
         }
 
-        public ParenthesizedPatternSyntaxWrapper WithPattern(PatternSyntaxWrapper pattern)
+        public ParenthesizedPatternSyntaxWrapper WithPattern(PatternSyntax pattern)
         {
             return new ParenthesizedPatternSyntaxWrapper(WithPatternAccessor(this.SyntaxNode, pattern));
         }

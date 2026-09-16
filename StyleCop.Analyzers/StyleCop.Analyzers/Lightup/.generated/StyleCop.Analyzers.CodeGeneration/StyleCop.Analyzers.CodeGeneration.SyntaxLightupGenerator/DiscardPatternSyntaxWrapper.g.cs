@@ -9,29 +9,29 @@ namespace StyleCop.Analyzers.Lightup
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-    internal readonly partial struct DiscardPatternSyntaxWrapper : ISyntaxWrapper<CSharpSyntaxNode>
+    internal readonly partial struct DiscardPatternSyntaxWrapper : ISyntaxWrapper<PatternSyntax>
     {
         internal const string WrappedTypeName = "Microsoft.CodeAnalysis.CSharp.Syntax.DiscardPatternSyntax";
         private static readonly Type WrappedType;
 
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken> UnderscoreTokenAccessor;
-        private static readonly Func<CSharpSyntaxNode, SyntaxToken, CSharpSyntaxNode> WithUnderscoreTokenAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken> UnderscoreTokenAccessor;
+        private static readonly Func<PatternSyntax, SyntaxToken, PatternSyntax> WithUnderscoreTokenAccessor;
 
-        private readonly CSharpSyntaxNode node;
+        private readonly PatternSyntax node;
 
         static DiscardPatternSyntaxWrapper()
         {
             WrappedType = SyntaxWrapperHelper.GetWrappedType(typeof(DiscardPatternSyntaxWrapper));
-            UnderscoreTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(UnderscoreToken));
-            WithUnderscoreTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<CSharpSyntaxNode, SyntaxToken>(WrappedType, nameof(UnderscoreToken));
+            UnderscoreTokenAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(UnderscoreToken));
+            WithUnderscoreTokenAccessor = LightupHelpers.CreateSyntaxWithPropertyAccessor<PatternSyntax, SyntaxToken>(WrappedType, nameof(UnderscoreToken));
         }
 
-        private DiscardPatternSyntaxWrapper(CSharpSyntaxNode node)
+        private DiscardPatternSyntaxWrapper(PatternSyntax node)
         {
             this.node = node;
         }
 
-        public CSharpSyntaxNode SyntaxNode => this.node;
+        public PatternSyntax SyntaxNode => this.node;
 
 
         public SyntaxToken UnderscoreToken
@@ -40,16 +40,6 @@ namespace StyleCop.Analyzers.Lightup
             {
                 return UnderscoreTokenAccessor(this.SyntaxNode);
             }
-        }
-
-        public static explicit operator DiscardPatternSyntaxWrapper(PatternSyntaxWrapper node)
-        {
-            return (DiscardPatternSyntaxWrapper)node.SyntaxNode;
-        }
-
-        public static explicit operator DiscardPatternSyntaxWrapper(ExpressionOrPatternSyntaxWrapper node)
-        {
-            return (DiscardPatternSyntaxWrapper)node.SyntaxNode;
         }
 
         public static explicit operator DiscardPatternSyntaxWrapper(SyntaxNode node)
@@ -64,20 +54,10 @@ namespace StyleCop.Analyzers.Lightup
                 throw new InvalidCastException($"Cannot cast '{node.GetType().FullName}' to '{WrappedTypeName}'");
             }
 
-            return new DiscardPatternSyntaxWrapper((CSharpSyntaxNode)node);
+            return new DiscardPatternSyntaxWrapper((PatternSyntax)node);
         }
 
-        public static implicit operator PatternSyntaxWrapper(DiscardPatternSyntaxWrapper wrapper)
-        {
-            return PatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator ExpressionOrPatternSyntaxWrapper(DiscardPatternSyntaxWrapper wrapper)
-        {
-            return ExpressionOrPatternSyntaxWrapper.FromUpcast(wrapper.node);
-        }
-
-        public static implicit operator CSharpSyntaxNode(DiscardPatternSyntaxWrapper wrapper)
+        public static implicit operator PatternSyntax(DiscardPatternSyntaxWrapper wrapper)
         {
             return wrapper.node;
         }

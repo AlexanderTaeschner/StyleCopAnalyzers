@@ -36,4 +36,8 @@
     <ProjectReference Include="..\StyleCop.Analyzers.PrivateCodeFixes\StyleCop.Analyzers.PrivateCodeFixes.csproj" PrivateAssets="all" SetTargetFramework="TargetFramework=netstandard2.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lightup\" />
+  </ItemGroup>
+
 </Project>

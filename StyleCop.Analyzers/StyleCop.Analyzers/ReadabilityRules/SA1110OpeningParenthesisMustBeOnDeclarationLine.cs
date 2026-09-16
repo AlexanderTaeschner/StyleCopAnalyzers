@@ -343,7 +343,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = (LocalFunctionStatementSyntax)context.Node;
             if (localFunctionStatement.ParameterList != null
                 && !localFunctionStatement.ParameterList.OpenParenToken.IsMissing
                 && !localFunctionStatement.Identifier.IsMissing)

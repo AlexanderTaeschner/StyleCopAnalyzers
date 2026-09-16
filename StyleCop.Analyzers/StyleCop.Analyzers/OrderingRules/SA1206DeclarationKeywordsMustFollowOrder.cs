@@ -91,7 +91,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunction = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunction = (LocalFunctionStatementSyntax)context.Node;
             CheckModifiersOrderAndReportDiagnostics(context, localFunction.Modifiers);
         }
 

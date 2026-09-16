@@ -22,12 +22,12 @@
     <file src="..\..\THIRD-PARTY-NOTICES.txt" />
 
     <!-- Binaries and symbols -->
-    <file src="bin\$Configuration$\netstandard1.1\StyleCop.Analyzers.dll" target="analyzers\dotnet\cs" />
-    <file src="bin\$Configuration$\netstandard1.1\**\StyleCop.Analyzers.resources.dll" target="analyzers\dotnet\cs" />
-    <file src="bin\$Configuration$\netstandard1.1\StyleCop.Analyzers.pdb" target="analyzers\dotnet\cs" />
-    <file src="bin\$Configuration$\netstandard1.1\StyleCop.Analyzers.CodeFixes.dll" target="analyzers\dotnet\cs" />
-    <file src="bin\$Configuration$\netstandard1.1\**\StyleCop.Analyzers.CodeFixes.resources.dll" target="analyzers\dotnet\cs" />
-    <file src="bin\$Configuration$\netstandard1.1\StyleCop.Analyzers.CodeFixes.pdb" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\StyleCop.Analyzers.dll" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\**\StyleCop.Analyzers.resources.dll" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\StyleCop.Analyzers.pdb" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\StyleCop.Analyzers.CodeFixes.dll" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\**\StyleCop.Analyzers.CodeFixes.resources.dll" target="analyzers\dotnet\cs" />
+    <file src="bin\$Configuration$\netstandard2.0\StyleCop.Analyzers.CodeFixes.pdb" target="analyzers\dotnet\cs" />
 
 	<!-- Rulesets -->
 	<file src="rulesets\StyleCopAnalyzersDefault.ruleset" target="rulesets\" />

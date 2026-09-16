@@ -181,10 +181,8 @@ namespace StyleCop.Analyzers.Helpers
 
         private static bool AppendTupleType(StringBuilder builder, INamedTypeSymbol namedTypeSymbol, TypeSyntax type)
         {
-            if (TupleTypeSyntaxWrapper.IsInstance(type))
+            if (type is TupleTypeSyntax tupleType)
             {
-                var tupleType = (TupleTypeSyntaxWrapper)type;
-
                 builder.Append(TupleTypeOpen);
                 var elements = namedTypeSymbol.TupleElements();
                 for (int i = 0; i < elements.Length; i++)

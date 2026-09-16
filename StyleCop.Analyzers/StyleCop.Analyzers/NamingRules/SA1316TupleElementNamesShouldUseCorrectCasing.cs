@@ -67,7 +67,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            var tupleType = (TupleTypeSyntaxWrapper)context.Node;
+            var tupleType = (TupleTypeSyntax)context.Node;
 
             foreach (var tupleElement in tupleType.Elements)
             {
@@ -87,7 +87,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
+            var tupleExpression = (TupleExpressionSyntax)context.Node;
             foreach (var argument in tupleExpression.Arguments)
             {
                 var inferredMemberName = SyntaxFactsEx.TryGetInferredMemberName(argument.NameColon?.Name ?? argument.Expression);
@@ -98,14 +98,14 @@ namespace StyleCop.Analyzers.NamingRules
             }
         }
 
-        private static void CheckTupleElement(SyntaxNodeAnalysisContext context, StyleCopSettings settings, TupleElementSyntaxWrapper tupleElement)
+        private static void CheckTupleElement(SyntaxNodeAnalysisContext context, StyleCopSettings settings, TupleElementSyntax tupleElement)
         {
             if (tupleElement.Identifier == default)
             {
                 return;
             }
 
-            CheckName(context, settings, tupleElement.SyntaxNode, tupleElement.Identifier.ValueText, tupleElement.Identifier.GetLocation(), true);
+            CheckName(context, settings, tupleElement, tupleElement.Identifier.ValueText, tupleElement.Identifier.GetLocation(), true);
         }
 
         private static void CheckName(SyntaxNodeAnalysisContext context, StyleCopSettings settings, SyntaxNode tupleElement, string tupleElementName, Location location, bool prepareCodeFix)

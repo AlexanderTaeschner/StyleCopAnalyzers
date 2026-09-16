@@ -116,7 +116,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var statement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var statement = (LocalFunctionStatementSyntax)context.Node;
             HandleParameterListSyntax(context, statement.ParameterList);
         }
 

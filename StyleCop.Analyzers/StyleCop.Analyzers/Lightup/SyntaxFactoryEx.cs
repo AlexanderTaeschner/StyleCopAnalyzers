@@ -25,8 +25,6 @@ namespace StyleCop.Analyzers.Lightup
         private static readonly Func<TypeSyntax, SyntaxToken, CSharpSyntaxNode> TupleElementAccessor2;
         private static readonly Func<SeparatedSyntaxList<ArgumentSyntax>, ExpressionSyntax> TupleExpressionAccessor1;
         private static readonly Func<SyntaxToken, SeparatedSyntaxList<ArgumentSyntax>, SyntaxToken, ExpressionSyntax> TupleExpressionAccessor2;
-        private static readonly Func<SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, TypeSyntax> TupleTypeAccessor1;
-        private static readonly Func<SyntaxToken, SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, SyntaxToken, TypeSyntax> TupleTypeAccessor2;
 
         static SyntaxFactoryEx()
         {
@@ -135,7 +133,7 @@ namespace StyleCop.Analyzers.Lightup
             }
 
             var parenthesizedPatternMethods = typeof(SyntaxFactory).GetTypeInfo().GetDeclaredMethods(nameof(ParenthesizedPattern));
-            var parenthesizedPatternMethod = parenthesizedPatternMethods.FirstOrDefault(method => method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == SyntaxWrapperHelper.GetWrappedType(typeof(PatternSyntaxWrapper)));
+            var parenthesizedPatternMethod = parenthesizedPatternMethods.FirstOrDefault(method => method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == typeof(PatternSyntax));
             if (parenthesizedPatternMethod is object)
             {
                 var patternParameter = Expression.Parameter(typeof(CSharpSyntaxNode), "pattern");
@@ -182,129 +180,6 @@ namespace StyleCop.Analyzers.Lightup
             {
                 ParenthesizedPatternAccessor3 = ThrowNotSupportedOnFallback<SyntaxToken, CSharpSyntaxNode, SyntaxToken, TypeSyntax>(nameof(SyntaxFactory), nameof(ParenthesizedPattern));
             }
-
-            var tupleElementMethods = typeof(SyntaxFactory).GetTypeInfo().GetDeclaredMethods(nameof(TupleElement));
-            var tupleElementMethod = tupleElementMethods.FirstOrDefault(method => method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == typeof(TypeSyntax));
-            if (tupleElementMethod is object)
-            {
-                var typeParameter = Expression.Parameter(typeof(TypeSyntax), "type");
-                Expression<Func<TypeSyntax, CSharpSyntaxNode>> expression =
-                    Expression.Lambda<Func<TypeSyntax, CSharpSyntaxNode>>(
-                        Expression.Call(tupleElementMethod, typeParameter),
-                        typeParameter);
-                TupleElementAccessor1 = expression.Compile();
-            }
-            else
-            {
-                TupleElementAccessor1 = ThrowNotSupportedOnFallback<TypeSyntax, CSharpSyntaxNode>(nameof(SyntaxFactory), nameof(TupleElement));
-            }
-
-            tupleElementMethod = tupleElementMethods.FirstOrDefault(method => method.GetParameters().Length == 2 && method.GetParameters()[0].ParameterType == typeof(TypeSyntax) && method.GetParameters()[1].ParameterType == typeof(SyntaxToken));
-            if (tupleElementMethod is object)
-            {
-                var typeParameter = Expression.Parameter(typeof(TypeSyntax), "type");
-                var identifierParameter = Expression.Parameter(typeof(SyntaxToken), "identifier");
-                Expression<Func<TypeSyntax, SyntaxToken, CSharpSyntaxNode>> expression =
-                    Expression.Lambda<Func<TypeSyntax, SyntaxToken, CSharpSyntaxNode>>(
-                        Expression.Call(tupleElementMethod, typeParameter, identifierParameter),
-                        typeParameter,
-                        identifierParameter);
-                TupleElementAccessor2 = expression.Compile();
-            }
-            else
-            {
-                TupleElementAccessor2 = ThrowNotSupportedOnFallback<TypeSyntax, SyntaxToken, CSharpSyntaxNode>(nameof(SyntaxFactory), nameof(TupleElement));
-            }
-
-            var tupleExpressionMethods = typeof(SyntaxFactory).GetTypeInfo().GetDeclaredMethods(nameof(TupleExpression));
-            var tupleExpressionMethod = tupleExpressionMethods.FirstOrDefault(method => method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == typeof(SeparatedSyntaxList<ArgumentSyntax>));
-            if (tupleExpressionMethod is object)
-            {
-                var argumentsParameter = Expression.Parameter(typeof(SeparatedSyntaxList<ArgumentSyntax>), "arguments");
-                Expression<Func<SeparatedSyntaxList<ArgumentSyntax>, ExpressionSyntax>> expression =
-                    Expression.Lambda<Func<SeparatedSyntaxList<ArgumentSyntax>, ExpressionSyntax>>(
-                        Expression.Call(tupleExpressionMethod, argumentsParameter),
-                        argumentsParameter);
-                TupleExpressionAccessor1 = expression.Compile();
-            }
-            else
-            {
-                TupleExpressionAccessor1 = ThrowNotSupportedOnFallback<SeparatedSyntaxList<ArgumentSyntax>, ExpressionSyntax>(nameof(SyntaxFactory), nameof(TupleExpression));
-            }
-
-            tupleExpressionMethod = tupleExpressionMethods.FirstOrDefault(method => method.GetParameters().Length == 3
-                && method.GetParameters()[0].ParameterType == typeof(SyntaxToken)
-                && method.GetParameters()[1].ParameterType == typeof(SeparatedSyntaxList<ArgumentSyntax>)
-                && method.GetParameters()[2].ParameterType == typeof(SyntaxToken));
-            if (tupleExpressionMethod is object)
-            {
-                var openParenTokenParameter = Expression.Parameter(typeof(SyntaxToken), "openParenToken");
-                var argumentsParameter = Expression.Parameter(typeof(SeparatedSyntaxList<ArgumentSyntax>), "arguments");
-                var closeParenTokenParameter = Expression.Parameter(typeof(SyntaxToken), "closeParenToken");
-                Expression<Func<SyntaxToken, SeparatedSyntaxList<ArgumentSyntax>, SyntaxToken, ExpressionSyntax>> expression =
-                    Expression.Lambda<Func<SyntaxToken, SeparatedSyntaxList<ArgumentSyntax>, SyntaxToken, ExpressionSyntax>>(
-                        Expression.Call(tupleExpressionMethod, openParenTokenParameter, argumentsParameter, closeParenTokenParameter),
-                        openParenTokenParameter,
-                        argumentsParameter,
-                        closeParenTokenParameter);
-                TupleExpressionAccessor2 = expression.Compile();
-            }
-            else
-            {
-                TupleExpressionAccessor2 = ThrowNotSupportedOnFallback<SyntaxToken, SeparatedSyntaxList<ArgumentSyntax>, SyntaxToken, ExpressionSyntax>(nameof(SyntaxFactory), nameof(TupleExpression));
-            }
-
-            var tupleTypeMethods = typeof(SyntaxFactory).GetTypeInfo().GetDeclaredMethods(nameof(TupleType));
-            var tupleTypeMethod = tupleTypeMethods.FirstOrDefault(method => method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == typeof(SeparatedSyntaxList<>).MakeGenericType(SyntaxWrapperHelper.GetWrappedType(typeof(TupleElementSyntaxWrapper))));
-            if (tupleTypeMethod is object)
-            {
-                var elementsParameter = Expression.Parameter(typeof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>), "elements");
-                var underlyingListProperty = typeof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>).GetTypeInfo().GetDeclaredProperty(nameof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>.UnderlyingList));
-                Expression<Func<SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, TypeSyntax>> expression =
-                    Expression.Lambda<Func<SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, TypeSyntax>>(
-                        Expression.Call(
-                            tupleTypeMethod,
-                            Expression.Convert(
-                                Expression.Call(elementsParameter, underlyingListProperty.GetMethod),
-                                tupleTypeMethod.GetParameters()[0].ParameterType)),
-                        elementsParameter);
-                TupleTypeAccessor1 = expression.Compile();
-            }
-            else
-            {
-                TupleTypeAccessor1 = ThrowNotSupportedOnFallback<SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, TypeSyntax>(nameof(SyntaxFactory), nameof(TupleType));
-            }
-
-            tupleTypeMethod = tupleTypeMethods.FirstOrDefault(method => method.GetParameters().Length == 3
-                && method.GetParameters()[0].ParameterType == typeof(SyntaxToken)
-                && method.GetParameters()[1].ParameterType == typeof(SeparatedSyntaxList<>).MakeGenericType(SyntaxWrapperHelper.GetWrappedType(typeof(TupleElementSyntaxWrapper)))
-                && method.GetParameters()[2].ParameterType == typeof(SyntaxToken));
-            if (tupleTypeMethod is object)
-            {
-                var openParenTokenParameter = Expression.Parameter(typeof(SyntaxToken), "openParenToken");
-                var elementsParameter = Expression.Parameter(typeof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>), "elements");
-                var closeParenTokenParameter = Expression.Parameter(typeof(SyntaxToken), "closeParenToken");
-
-                var underlyingListProperty = typeof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>).GetTypeInfo().GetDeclaredProperty(nameof(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>.UnderlyingList));
-
-                Expression<Func<SyntaxToken, SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, SyntaxToken, TypeSyntax>> expression =
-                    Expression.Lambda<Func<SyntaxToken, SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, SyntaxToken, TypeSyntax>>(
-                        Expression.Call(
-                            tupleTypeMethod,
-                            openParenTokenParameter,
-                            Expression.Convert(
-                                Expression.Call(elementsParameter, underlyingListProperty.GetMethod),
-                                tupleTypeMethod.GetParameters()[1].ParameterType),
-                            closeParenTokenParameter),
-                        openParenTokenParameter,
-                        elementsParameter,
-                        closeParenTokenParameter);
-                TupleTypeAccessor2 = expression.Compile();
-            }
-            else
-            {
-                TupleTypeAccessor2 = ThrowNotSupportedOnFallback<SyntaxToken, SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>, SyntaxToken, TypeSyntax>(nameof(SyntaxFactory), nameof(TupleType));
-            }
         }
 
         public static PositionalPatternClauseSyntaxWrapper PositionalPatternClause(SeparatedSyntaxListWrapper<SubpatternSyntaxWrapper> subpatterns = default)
@@ -327,44 +202,14 @@ namespace StyleCop.Analyzers.Lightup
             return (PropertyPatternClauseSyntaxWrapper)PropertyPatternClauseAccessor2(openBraceToken, subpatterns, closeBraceToken);
         }
 
-        public static ParenthesizedPatternSyntaxWrapper ParenthesizedPattern(PatternSyntaxWrapper pattern)
+        public static ParenthesizedPatternSyntaxWrapper ParenthesizedPattern(PatternSyntax pattern)
         {
             return (ParenthesizedPatternSyntaxWrapper)ParenthesizedPatternAccessor1(pattern);
         }
 
-        public static ParenthesizedPatternSyntaxWrapper ParenthesizedPattern(SyntaxToken openParenToken, PatternSyntaxWrapper pattern, SyntaxToken closeParenToken)
+        public static ParenthesizedPatternSyntaxWrapper ParenthesizedPattern(SyntaxToken openParenToken, PatternSyntax pattern, SyntaxToken closeParenToken)
         {
             return (ParenthesizedPatternSyntaxWrapper)ParenthesizedPatternAccessor3(openParenToken, pattern, closeParenToken);
-        }
-
-        public static TupleElementSyntaxWrapper TupleElement(TypeSyntax type)
-        {
-            return (TupleElementSyntaxWrapper)TupleElementAccessor1(type);
-        }
-
-        public static TupleElementSyntaxWrapper TupleElement(TypeSyntax type, SyntaxToken identifier)
-        {
-            return (TupleElementSyntaxWrapper)TupleElementAccessor2(type, identifier);
-        }
-
-        public static TupleExpressionSyntaxWrapper TupleExpression(SeparatedSyntaxList<ArgumentSyntax> arguments = default)
-        {
-            return (TupleExpressionSyntaxWrapper)TupleExpressionAccessor1(arguments);
-        }
-
-        public static TupleExpressionSyntaxWrapper TupleExpression(SyntaxToken openParenToken, SeparatedSyntaxList<ArgumentSyntax> arguments, SyntaxToken closeParenToken)
-        {
-            return (TupleExpressionSyntaxWrapper)TupleExpressionAccessor2(openParenToken, arguments, closeParenToken);
-        }
-
-        public static TupleTypeSyntaxWrapper TupleType(SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper> elements = default)
-        {
-            return (TupleTypeSyntaxWrapper)TupleTypeAccessor1(elements);
-        }
-
-        public static TupleTypeSyntaxWrapper TupleType(SyntaxToken openParenToken, SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper> elements, SyntaxToken closeParenToken)
-        {
-            return (TupleTypeSyntaxWrapper)TupleTypeAccessor2(openParenToken, elements, closeParenToken);
         }
 
         private static Func<T, TResult> ThrowNotSupportedOnFallback<T, TResult>(string typeName, string methodName)

@@ -85,7 +85,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static Task<Document> GetTransformedDocumentAsync(Document document, SyntaxNode root, BinaryPatternSyntaxWrapper syntax)
         {
-            var newNode = (ParenthesizedPatternSyntaxWrapper)SyntaxFactoryEx.ParenthesizedPattern((PatternSyntaxWrapper)syntax.SyntaxNode.WithoutTrivia())
+            var newNode = (ParenthesizedPatternSyntaxWrapper)SyntaxFactoryEx.ParenthesizedPattern((PatternSyntax)syntax.SyntaxNode.WithoutTrivia())
                 .SyntaxNode
                 .WithTriviaFrom(syntax)
                 .WithoutFormatting();

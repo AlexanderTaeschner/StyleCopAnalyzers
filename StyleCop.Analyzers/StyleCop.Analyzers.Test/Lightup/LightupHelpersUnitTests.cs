@@ -15,12 +15,6 @@ namespace StyleCop.Analyzers.Test.Lightup
     public class LightupHelpersUnitTests
     {
         [Fact]
-        public void TestCanWrapNullNode()
-        {
-            Assert.True(LightupHelpers.CanWrapNode(null, typeof(PatternSyntaxWrapper)));
-        }
-
-        [Fact]
         public void TestCanAccessNonExistentProperty()
         {
             var propertyAccessor = LightupHelpers.CreateSyntaxPropertyAccessor<SyntaxNode, object>(typeof(SyntaxNode), "NonExistentProperty");
