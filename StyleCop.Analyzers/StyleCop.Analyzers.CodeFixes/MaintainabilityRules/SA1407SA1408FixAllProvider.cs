@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using StyleCop.Analyzers.Helpers;
     using StyleCop.Analyzers.Lightup;
 
-    internal sealed class SA1407SA1408FixAllProvider : DocumentBasedFixAllProvider
+    internal sealed class SA1407SA1408FixAllProvider : Helpers.DocumentBasedFixAllProvider
     {
         protected override string CodeActionTitle => MaintainabilityResources.SA1407SA1408CodeFix;
 
@@ -54,13 +54,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                     .WithoutFormatting();
             }
 
-            if (BinaryPatternSyntaxWrapper.IsInstance(node))
+            if (node is BinaryPatternSyntax patternSyntax)
             {
-                BinaryPatternSyntaxWrapper trimmedSyntax = (BinaryPatternSyntaxWrapper)node.WithoutTrivia();
+                BinaryPatternSyntax trimmedSyntax = patternSyntax.WithoutTrivia();
 
-                return SyntaxFactoryEx.ParenthesizedPattern(trimmedSyntax)
-                    .SyntaxNode
-                    .WithTriviaFrom(node)
+                return SyntaxFactory.ParenthesizedPattern(trimmedSyntax)
+                    .WithTriviaFrom(patternSyntax)
                     .WithoutFormatting();
             }
 

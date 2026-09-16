@@ -60,12 +60,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                             nameof(SA1407SA1408CodeFixProvider)),
                         diagnostic);
                 }
-                else if (BinaryPatternSyntaxWrapper.IsInstance(node))
+                else if (node is BinaryPatternSyntax patternSyntax)
                 {
                     context.RegisterCodeFix(
                         CodeAction.Create(
                             MaintainabilityResources.SA1407SA1408CodeFix,
-                            cancellationToken => GetTransformedDocumentAsync(context.Document, root, (BinaryPatternSyntaxWrapper)node),
+                            cancellationToken => GetTransformedDocumentAsync(context.Document, root, patternSyntax),
                             nameof(SA1407SA1408CodeFixProvider)),
                         diagnostic);
                 }
@@ -83,10 +83,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             return Task.FromResult(document.WithSyntaxRoot(newSyntaxRoot));
         }
 
-        private static Task<Document> GetTransformedDocumentAsync(Document document, SyntaxNode root, BinaryPatternSyntaxWrapper syntax)
+        private static Task<Document> GetTransformedDocumentAsync(Document document, SyntaxNode root, BinaryPatternSyntax syntax)
         {
-            var newNode = (ParenthesizedPatternSyntaxWrapper)SyntaxFactoryEx.ParenthesizedPattern((PatternSyntax)syntax.SyntaxNode.WithoutTrivia())
-                .SyntaxNode
+            var newNode = (ParenthesizedPatternSyntax)SyntaxFactory.ParenthesizedPattern((PatternSyntax)syntax.WithoutTrivia())
                 .WithTriviaFrom(syntax)
                 .WithoutFormatting();
 

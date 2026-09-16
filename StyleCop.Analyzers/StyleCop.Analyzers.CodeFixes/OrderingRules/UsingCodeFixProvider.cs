@@ -147,7 +147,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
             if (usingDirectivesPlacement == UsingDirectivesPlacement.InsideNamespace)
             {
-                var rootNamespace = compilationUnit.Members.First(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member));
+                var rootNamespace = compilationUnit.Members.First(member => member is BaseNamespaceDeclarationSyntax);
                 var indentationLevel = IndentationHelper.GetIndentationSteps(indentationSettings, rootNamespace);
                 if (!rootNamespace.IsKind(SyntaxKindEx.FileScopedNamespaceDeclaration))
                 {
@@ -203,9 +203,9 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             var result = 0;
 
-            foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member)))
+            foreach (var namespaceDeclaration in members.Where(member => member is BaseNamespaceDeclarationSyntax))
             {
-                result += 1 + CountNamespaces(((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Members);
+                result += 1 + CountNamespaces(((BaseNamespaceDeclarationSyntax)namespaceDeclaration).Members);
             }
 
             return result;
@@ -286,8 +286,8 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static SyntaxNode AddUsingsToNamespace(SyntaxNode newSyntaxRoot, SyntaxTrivia endOfLine, UsingsSorter usingsHelper, string usingsIndentation, bool hasConditionalDirectives)
         {
-            var rootNamespace = (BaseNamespaceDeclarationSyntaxWrapper)((CompilationUnitSyntax)newSyntaxRoot).Members.First(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member));
-            var withLeadingBlankLine = rootNamespace.SyntaxNode.IsKind(SyntaxKindEx.FileScopedNamespaceDeclaration);
+            var rootNamespace = (BaseNamespaceDeclarationSyntax)((CompilationUnitSyntax)newSyntaxRoot).Members.First(member => member is BaseNamespaceDeclarationSyntax);
+            var withLeadingBlankLine = rootNamespace.IsKind(SyntaxKindEx.FileScopedNamespaceDeclaration);
             var withTrailingBlankLine = hasConditionalDirectives || rootNamespace.Members.Any() || rootNamespace.Externs.Any();
 
             var groupedUsings = usingsHelper.GenerateGroupedUsings(TreeTextSpan.Empty, usingsIndentation, endOfLine, withLeadingBlankLine, withTrailingBlankLine, qualifyNames: false, includeGlobal: false, includeLocal: true);
@@ -507,7 +507,7 @@ namespace StyleCop.Analyzers.OrderingRules
             }
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 

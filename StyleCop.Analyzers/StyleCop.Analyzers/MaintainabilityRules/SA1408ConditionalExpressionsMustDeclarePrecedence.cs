@@ -123,23 +123,21 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static void HandleBinaryPattern(SyntaxNodeAnalysisContext context)
         {
-            var binaryPattern = (BinaryPatternSyntaxWrapper)context.Node;
+            var binaryPattern = (BinaryPatternSyntax)context.Node;
 
-            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Left))
+            if (binaryPattern.Left is BinaryPatternSyntax left)
             {
-                var left = (BinaryPatternSyntaxWrapper)binaryPattern.Left;
                 if (IsLogicalOperator(left.OperatorToken) && !IsSameFamily(binaryPattern.OperatorToken, left.OperatorToken))
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(Descriptor, left.SyntaxNode.GetLocation()));
+                    context.ReportDiagnostic(Diagnostic.Create(Descriptor, left.GetLocation()));
                 }
             }
 
-            if (BinaryPatternSyntaxWrapper.IsInstance(binaryPattern.Right))
+            if (binaryPattern.Right is BinaryPatternSyntax right)
             {
-                var right = (BinaryPatternSyntaxWrapper)binaryPattern.Right;
                 if (IsLogicalOperator(right.OperatorToken) && !IsSameFamily(binaryPattern.OperatorToken, right.OperatorToken))
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(Descriptor, right.SyntaxNode.GetLocation()));
+                    context.ReportDiagnostic(Diagnostic.Create(Descriptor, right.GetLocation()));
                 }
             }
         }

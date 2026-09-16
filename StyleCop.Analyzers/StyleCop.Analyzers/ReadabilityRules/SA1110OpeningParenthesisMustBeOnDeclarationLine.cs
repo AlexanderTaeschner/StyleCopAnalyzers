@@ -262,7 +262,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleImplicitObjectCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntaxWrapper)context.Node;
+            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntax)context.Node;
             if (implicitObjectCreation.NewKeyword.IsMissing)
             {
                 return;
@@ -369,7 +369,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntax)context.Node;
 
             var identifierName = ((BaseTypeSyntax)primaryConstructorBaseType).ChildNodes()
                 .OfType<IdentifierNameSyntax>()

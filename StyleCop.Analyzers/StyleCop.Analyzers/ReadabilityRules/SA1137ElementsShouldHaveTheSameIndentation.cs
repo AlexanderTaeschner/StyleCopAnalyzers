@@ -98,7 +98,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = (BaseNamespaceDeclarationSyntax)context.Node;
 
             var elements = ImmutableList.CreateBuilder<SyntaxNode>();
 

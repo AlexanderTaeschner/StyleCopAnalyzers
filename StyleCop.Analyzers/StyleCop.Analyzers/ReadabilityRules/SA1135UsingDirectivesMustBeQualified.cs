@@ -107,7 +107,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     break;
 
                 case SymbolKind.NamedType:
-                    var containingNamespace = ((BaseNamespaceDeclarationSyntaxWrapper)usingDirective.Parent).Name.ToString();
+                    var containingNamespace = ((BaseNamespaceDeclarationSyntax)usingDirective.Parent).Name.ToString();
                     if (containingNamespace != symbol.ContainingNamespace.ToString())
                     {
                         context.ReportDiagnostic(Diagnostic.Create(DescriptorType, usingDirective.GetLocation(), symbolString));

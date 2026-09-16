@@ -217,7 +217,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static void HandleFileScopedNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = (BaseNamespaceDeclarationSyntax)context.Node;
 
             var usings = namespaceDeclaration.Usings;
             var members = namespaceDeclaration.Members;

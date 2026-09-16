@@ -174,7 +174,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 newModifiers.Zip(oldModifiers, (m1, m2) => m1.WithTriviaFrom(m2)));
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 

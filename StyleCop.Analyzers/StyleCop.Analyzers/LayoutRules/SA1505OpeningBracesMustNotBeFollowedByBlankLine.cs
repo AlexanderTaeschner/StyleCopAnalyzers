@@ -130,13 +130,13 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context)
         {
-            var switchExpression = (SwitchExpressionSyntaxWrapper)context.Node;
+            var switchExpression = (SwitchExpressionSyntax)context.Node;
             AnalyzeOpenBrace(context, switchExpression.OpenBraceToken);
         }
 
         private static void HandlePropertyPatternClause(SyntaxNodeAnalysisContext context)
         {
-            var propertyPatternClause = (PropertyPatternClauseSyntaxWrapper)context.Node;
+            var propertyPatternClause = (PropertyPatternClauseSyntax)context.Node;
             AnalyzeOpenBrace(context, propertyPatternClause.OpenBraceToken);
         }
 

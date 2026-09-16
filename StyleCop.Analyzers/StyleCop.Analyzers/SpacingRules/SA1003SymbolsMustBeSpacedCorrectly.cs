@@ -258,7 +258,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
         private static void HandleRangeExpression(SyntaxNodeAnalysisContext context)
         {
-            var rangeExpression = (RangeExpressionSyntaxWrapper)context.Node;
+            var rangeExpression = (RangeExpressionSyntax)context.Node;
             var hasLeftOperand = rangeExpression.LeftOperand != null;
             var hasRightOperand = rangeExpression.RightOperand != null;
 
@@ -345,7 +345,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
         private static void HandleRelationalPattern(SyntaxNodeAnalysisContext context)
         {
-            var relationalPattern = (RelationalPatternSyntaxWrapper)context.Node;
+            var relationalPattern = (RelationalPatternSyntax)context.Node;
             var operatorToken = relationalPattern.OperatorToken;
             var precedingToken = operatorToken.GetPreviousToken();
 
@@ -446,7 +446,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
         private static void HandleSwitchExpressionArm(SyntaxNodeAnalysisContext context)
         {
-            var switchExpressionArm = (SwitchExpressionArmSyntaxWrapper)context.Node;
+            var switchExpressionArm = (SwitchExpressionArmSyntax)context.Node;
             CheckToken(context, switchExpressionArm.EqualsGreaterThanToken, true, true, true);
         }
 

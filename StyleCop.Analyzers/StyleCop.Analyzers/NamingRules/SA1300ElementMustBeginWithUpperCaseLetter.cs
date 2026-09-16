@@ -98,7 +98,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
-            NameSyntax nameSyntax = ((BaseNamespaceDeclarationSyntaxWrapper)context.Node).Name;
+            NameSyntax nameSyntax = ((BaseNamespaceDeclarationSyntax)context.Node).Name;
             CheckNamespaceNameSyntax(context, nameSyntax, settings);
         }
 

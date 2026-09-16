@@ -93,7 +93,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleImplicitObjectCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntaxWrapper)context.Node;
+            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntax)context.Node;
             var argumentList = implicitObjectCreation.ArgumentList;
 
             if (argumentList == null ||

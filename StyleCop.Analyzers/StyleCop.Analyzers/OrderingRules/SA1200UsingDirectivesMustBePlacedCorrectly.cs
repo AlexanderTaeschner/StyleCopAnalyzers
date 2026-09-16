@@ -274,7 +274,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 return;
             }
 
-            BaseNamespaceDeclarationSyntaxWrapper syntax = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            BaseNamespaceDeclarationSyntax syntax = (BaseNamespaceDeclarationSyntax)context.Node;
             foreach (UsingDirectiveSyntax directive in syntax.Usings)
             {
                 // Using directive should appear outside a namespace declaration

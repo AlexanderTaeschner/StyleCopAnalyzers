@@ -82,7 +82,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 return;
             }
 
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = (BaseNamespaceDeclarationSyntax)context.Node;
             var usings = namespaceDeclaration.Usings;
             ProcessUsingsAndReportDiagnostic(usings, context);
         }

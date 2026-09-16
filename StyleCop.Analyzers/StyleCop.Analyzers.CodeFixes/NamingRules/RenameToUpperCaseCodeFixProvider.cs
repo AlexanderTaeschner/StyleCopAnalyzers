@@ -69,7 +69,7 @@ namespace StyleCop.Analyzers.NamingRules
                 var newName = baseName;
                 var memberSyntax = RenameHelper.GetParentDeclaration(token);
 
-                if (BaseNamespaceDeclarationSyntaxWrapper.IsInstance(memberSyntax))
+                if (memberSyntax is BaseNamespaceDeclarationSyntax)
                 {
                     // namespaces are not symbols. So we are just renaming the namespace
                     Task<Document> RenameNamespace(CancellationToken cancellationToken)

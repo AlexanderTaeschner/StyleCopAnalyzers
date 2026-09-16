@@ -165,10 +165,10 @@ namespace StyleCop.Analyzers.LayoutRules
                 return false;
             }
 
-            private static RecursivePatternSyntaxWrapper FindRecursivePattern(SyntaxToken token)
+            private static RecursivePatternSyntax FindRecursivePattern(SyntaxToken token)
             {
-                var recursivePatternSyntax = token.Parent.FirstAncestorOrSelf<SyntaxNode>(static node => RecursivePatternSyntaxWrapper.IsInstance(node));
-                return (RecursivePatternSyntaxWrapper)recursivePatternSyntax;
+                var recursivePatternSyntax = token.Parent.FirstAncestorOrSelf<SyntaxNode>(static node => node is RecursivePatternSyntax);
+                return (RecursivePatternSyntax)recursivePatternSyntax;
             }
 
             private static bool IsPartOf<T>(SyntaxToken token)
@@ -294,8 +294,8 @@ namespace StyleCop.Analyzers.LayoutRules
 
                     var recursivePattern = FindRecursivePattern(token);
                     var nextRecursivePattern = FindRecursivePattern(nextToken);
-                    if (recursivePattern.SyntaxNode != null
-                        && nextRecursivePattern.SyntaxNode == recursivePattern.SyntaxNode
+                    if (recursivePattern != null
+                        && nextRecursivePattern == recursivePattern
                         && nextToken.IsKind(SyntaxKind.IdentifierToken))
                     {
                         // the close brace is part of a recursive pattern that continues with a designation

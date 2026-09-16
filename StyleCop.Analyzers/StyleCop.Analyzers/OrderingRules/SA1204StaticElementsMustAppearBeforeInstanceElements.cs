@@ -88,7 +88,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 return;
             }
 
-            var baseNamespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var baseNamespaceDeclaration = (BaseNamespaceDeclarationSyntax)context.Node;
 
             HandleMemberList(context, elementOrder, staticIndex, baseNamespaceDeclaration.Members);
         }

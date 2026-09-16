@@ -102,7 +102,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return newAttributeLists;
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } =
                 new FixAll();

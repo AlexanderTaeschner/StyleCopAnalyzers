@@ -194,7 +194,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleImplicitObjectCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntaxWrapper)context.Node;
+            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntax)context.Node;
             CheckArgumentList(context, implicitObjectCreation.ArgumentList);
         }
 
@@ -236,7 +236,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntax)context.Node;
             CheckArgumentList(context, typeDeclarationSyntax.ArgumentList);
         }
 

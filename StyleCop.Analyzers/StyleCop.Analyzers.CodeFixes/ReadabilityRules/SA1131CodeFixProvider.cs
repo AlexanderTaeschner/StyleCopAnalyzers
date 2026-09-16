@@ -111,7 +111,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } =
                 new FixAll();

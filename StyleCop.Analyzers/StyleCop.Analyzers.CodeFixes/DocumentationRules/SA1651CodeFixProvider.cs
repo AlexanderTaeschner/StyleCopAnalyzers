@@ -109,7 +109,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             return document.WithSyntaxRoot(newRoot);
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAll Instance { get; } = new FixAll();
 

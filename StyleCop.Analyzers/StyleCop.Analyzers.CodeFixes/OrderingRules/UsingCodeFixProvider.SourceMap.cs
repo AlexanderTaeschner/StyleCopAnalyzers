@@ -126,12 +126,12 @@ namespace StyleCop.Analyzers.OrderingRules
 
             private static void ProcessNodeMembers(TreeTextSpan.Builder builder, SyntaxList<MemberDeclarationSyntax> members)
             {
-                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member)))
+                foreach (var namespaceDeclaration in members.Where(member => member is BaseNamespaceDeclarationSyntax))
                 {
                     var childBuilder = builder.AddChild(namespaceDeclaration.FullSpan.Start);
                     childBuilder.SetEnd(namespaceDeclaration.FullSpan.End);
 
-                    ProcessNodeMembers(childBuilder, ((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Members);
+                    ProcessNodeMembers(childBuilder, ((BaseNamespaceDeclarationSyntax)namespaceDeclaration).Members);
                 }
             }
 

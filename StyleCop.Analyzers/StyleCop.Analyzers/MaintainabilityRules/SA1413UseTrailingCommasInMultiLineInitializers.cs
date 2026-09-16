@@ -129,29 +129,29 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context)
         {
-            var switchExpression = (SwitchExpressionSyntaxWrapper)context.Node;
-            if (switchExpression.SyntaxNode == null || !switchExpression.SyntaxNode.SpansMultipleLines())
+            var switchExpression = (SwitchExpressionSyntax)context.Node;
+            if (switchExpression == null || !switchExpression.SpansMultipleLines())
             {
                 return;
             }
 
             if (switchExpression.Arms.SeparatorCount < switchExpression.Arms.Count)
             {
-                context.ReportDiagnostic(Diagnostic.Create(Descriptor, switchExpression.Arms.Last().SyntaxNode.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Descriptor, switchExpression.Arms.Last().GetLocation()));
             }
         }
 
         private static void HandlePropertyPatternClause(SyntaxNodeAnalysisContext context)
         {
-            var propertyPatternClause = (PropertyPatternClauseSyntaxWrapper)context.Node;
-            if (propertyPatternClause.SyntaxNode == null || !propertyPatternClause.SyntaxNode.SpansMultipleLines())
+            var propertyPatternClause = (PropertyPatternClauseSyntax)context.Node;
+            if (propertyPatternClause == null || !propertyPatternClause.SpansMultipleLines())
             {
                 return;
             }
 
             if (propertyPatternClause.Subpatterns.SeparatorCount < propertyPatternClause.Subpatterns.Count)
             {
-                context.ReportDiagnostic(Diagnostic.Create(Descriptor, propertyPatternClause.Subpatterns.Last().SyntaxNode.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Descriptor, propertyPatternClause.Subpatterns.Last().GetLocation()));
             }
         }
     }

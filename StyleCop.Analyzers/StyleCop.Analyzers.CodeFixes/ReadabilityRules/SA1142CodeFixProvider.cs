@@ -64,7 +64,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return SyntaxFactory.IdentifierName(fieldNameSymbol.Name).WithTriviaFrom(fieldName);
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 

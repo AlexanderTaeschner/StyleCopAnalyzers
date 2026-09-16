@@ -85,9 +85,9 @@ namespace StyleCop.Analyzers.OrderingRules
                 return HandleTypeDeclaration(memberToMove, (TypeDeclarationSyntax)parentDeclaration, elementOrder, syntaxRoot, indentationSettings);
             }
 
-            if (BaseNamespaceDeclarationSyntaxWrapper.IsInstance(parentDeclaration))
+            if (parentDeclaration is BaseNamespaceDeclarationSyntax)
             {
-                return HandleBaseNamespaceDeclaration(memberToMove, (BaseNamespaceDeclarationSyntaxWrapper)parentDeclaration, elementOrder, syntaxRoot, indentationSettings);
+                return HandleBaseNamespaceDeclaration(memberToMove, (BaseNamespaceDeclarationSyntax)parentDeclaration, elementOrder, syntaxRoot, indentationSettings);
             }
 
             if (parentDeclaration is CompilationUnitSyntax)
@@ -108,7 +108,7 @@ namespace StyleCop.Analyzers.OrderingRules
             return OrderMember(memberOrder, compilationUnitDeclaration.Members, elementOrder, syntaxRoot, indentationSettings);
         }
 
-        private static SyntaxNode HandleBaseNamespaceDeclaration(MemberOrderHelper memberOrder, BaseNamespaceDeclarationSyntaxWrapper namespaceDeclaration, ImmutableArray<OrderingTrait> elementOrder, SyntaxNode syntaxRoot, IndentationSettings indentationSettings)
+        private static SyntaxNode HandleBaseNamespaceDeclaration(MemberOrderHelper memberOrder, BaseNamespaceDeclarationSyntax namespaceDeclaration, ImmutableArray<OrderingTrait> elementOrder, SyntaxNode syntaxRoot, IndentationSettings indentationSettings)
         {
             return OrderMember(memberOrder, namespaceDeclaration.Members, elementOrder, syntaxRoot, indentationSettings);
         }
@@ -253,7 +253,7 @@ namespace StyleCop.Analyzers.OrderingRules
             return SyntaxFactory.TriviaList(leadingTrivia.Skip(skipIndex));
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 

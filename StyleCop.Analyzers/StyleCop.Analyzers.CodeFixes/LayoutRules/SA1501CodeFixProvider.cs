@@ -275,7 +275,7 @@ namespace StyleCop.Analyzers.LayoutRules
             return statementSyntax;
         }
 
-        private class FixAll : DocumentBasedFixAllProvider
+        private class FixAll : Helpers.DocumentBasedFixAllProvider
         {
             public static FixAllProvider Instance { get; } =
                 new FixAll();

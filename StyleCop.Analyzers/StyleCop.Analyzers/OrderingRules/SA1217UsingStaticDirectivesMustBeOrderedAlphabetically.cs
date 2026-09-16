@@ -68,7 +68,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
-            var namespaceDirective = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDirective = (BaseNamespaceDeclarationSyntax)context.Node;
             CheckUsingDeclarations(context, settings.OrderingRules, namespaceDirective.Usings);
         }
 

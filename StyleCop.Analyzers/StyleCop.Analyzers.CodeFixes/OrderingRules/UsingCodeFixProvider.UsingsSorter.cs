@@ -525,10 +525,10 @@ namespace StyleCop.Analyzers.OrderingRules
 
             private void ProcessMembers(SyntaxList<MemberDeclarationSyntax> members)
             {
-                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member)))
+                foreach (var namespaceDeclaration in members.Where(member => member is BaseNamespaceDeclarationSyntax))
                 {
-                    this.ProcessUsingDirectives(((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Usings);
-                    this.ProcessMembers(((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Members);
+                    this.ProcessUsingDirectives(((BaseNamespaceDeclarationSyntax)namespaceDeclaration).Usings);
+                    this.ProcessMembers(((BaseNamespaceDeclarationSyntax)namespaceDeclaration).Members);
                 }
             }
 
