@@ -13,7 +13,6 @@ namespace StyleCop.Analyzers.Test.Verifiers
     using Microsoft.CodeAnalysis.CSharp.Testing;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Testing;
-    using Microsoft.CodeAnalysis.Testing.Verifiers;
     using StyleCop.Analyzers.SpacingRules;
     using Xunit;
     using Xunit.Sdk;
@@ -123,7 +122,7 @@ class ClassName
                 + $"Expected: None{Environment.NewLine}"
                 + $"Actual:   SourceFile(/0/Test0.cs[102..103))";
 
-            new XUnitVerifier().EqualOrDiff(expectedMessage, ex.Message);
+            new DefaultVerifier().EqualOrDiff(expectedMessage, ex.Message);
         }
 
         [Fact]
@@ -165,7 +164,7 @@ class ClassName
             var ex = await Assert.ThrowsAnyAsync<XunitException>(
                 async () =>
                 {
-                    await CSharpCodeFixVerifier<ErrorThrowingAnalyzer, EmptyCodeFixProvider, XUnitVerifier>.VerifyAnalyzerAsync(testCode, DiagnosticResult.EmptyDiagnosticResults).ConfigureAwait(false);
+                    await CSharpCodeFixVerifier<ErrorThrowingAnalyzer, EmptyCodeFixProvider, DefaultVerifier>.VerifyAnalyzerAsync(testCode, DiagnosticResult.EmptyDiagnosticResults).ConfigureAwait(false);
                 }).ConfigureAwait(false);
             Assert.StartsWith($"Context: Diagnostics of test state{Environment.NewLine}Mismatch between number of diagnostics returned, expected \"0\" actual \"1\"", ex.Message);
             Assert.Contains("error AD0001", ex.Message);
