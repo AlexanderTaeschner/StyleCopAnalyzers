@@ -196,7 +196,7 @@ namespace StyleCop.Analyzers.Helpers
                     }
 
                     AppendQualifiedSymbolName(builder, field.Type, fieldType.Type);
-                    if (!Equals(field, field.CorrespondingTupleField()))
+                    if (!SymbolEqualityComparer.Default.Equals(field, field.CorrespondingTupleField()))
                     {
                         builder.Append(" ").Append(field.Name);
                     }

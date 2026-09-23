@@ -134,7 +134,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 var argument = arguments[i];
 
                 var argumentTypeInfo = semanticModel.GetTypeInfo(argument.Expression);
-                if (!Equals(argumentTypeInfo.Type, argumentTypeInfo.ConvertedType))
+                if (!SymbolEqualityComparer.Default.Equals(argumentTypeInfo.Type, argumentTypeInfo.ConvertedType))
                 {
                     var expectedType = SyntaxFactory.ParseTypeName(argumentTypeInfo.ConvertedType.ToDisplayString());
                     argument = argument.WithExpression(SyntaxFactory.CastExpression(expectedType, argument.Expression));

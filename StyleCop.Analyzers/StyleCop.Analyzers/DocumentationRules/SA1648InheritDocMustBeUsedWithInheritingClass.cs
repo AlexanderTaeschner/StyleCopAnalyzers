@@ -241,7 +241,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                     IParameterSymbol constructorParameter = constructorMethodSymbol.Parameters[i];
                     IParameterSymbol baseParameter = baseConstructorMethod.Parameters[i];
 
-                    if (!constructorParameter.Type.Equals(baseParameter.Type))
+                    if (!SymbolEqualityComparer.Default.Equals(constructorParameter.Type, baseParameter.Type))
                     {
                         success = false;
                         break;
